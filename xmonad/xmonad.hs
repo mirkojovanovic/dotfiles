@@ -29,6 +29,8 @@ myManageHook  = composeAll
   , className =? "Arandr"      --> doFloat
   , className =? "keepassx2"   --> doFloat
   , className =? "qutebrowser" --> doShift "2"
+  , className =? "discord"     --> doShift "3"
+  , className =? "slack"       --> doShift "3"
   ]
 
 myKeys =
