@@ -34,7 +34,7 @@ fuzzy_edges 0
 
 # geometry <geometry>        # tray's geometry in standard X notation; width and
                              # height are specified in slot_size multiples
-geometry 3x1-0+0
+geometry 4x1-0+0
 
 # grow_gravity <gravity>     # one of N, S, E, W, NW, NE, SW, SE; tray will grow
                              # in the direction opposite to one specified by
@@ -109,7 +109,7 @@ tint_color "#1c1c1c"
 
 # tint_level <level>         # set tinting level; level ranges from 0 (disabled)
                              # to 255
-tint_level 160
+tint_level 170
 
 # transparent [<bool>]       # whether to use root-transparency (background
                              # image must be set with Esetroot or compatible utility)

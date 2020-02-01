@@ -2,9 +2,9 @@
 Config {font = "xft:SourceCodePro:style=regular:size=12,Font Awesome 5 Pro:size=12"
        , bgColor = "#1c1c1c"
        , fgColor = "#bababa"
-       , alpha = 160
-       , position = Static { xpos = 0, ypos = 0, width = 1280, height = 25 },
-       -- , position = TopW L 90
+       , alpha = 170
+       -- , position = Static { xpos = 0, ypos = 0, width = 1280, height = 25 },
+       , position = TopSize L 92 25
        , commands = [ Run Weather "EGPF" [ "-t"         , " <tempF>F"
                                          , "-L"         , " 65"
                                          , "-H"         , " 77"
@@ -21,16 +21,23 @@ Config {font = "xft:SourceCodePro:style=regular:size=12,Font Awesome 5 Pro:size=
                                          , "--high"     , "#ea8d45"
                                         ] 10
 
-                    , Run MultiCpu       [ "--template" , "\xf2db <total0>% <total1>%"
+                    , Run MultiCpu       [ "--template" , "\xf2db <total0>% <total1>% <total2>% <total3>%"
                                          , "-L"       , "3"
                                          , "-H"       , "50"
-                                         , "--normal" , "orange"
-                                         , "--high"   , "red"
+                                         , "--normal" , "#f799d7"
+                                         , "--high"   , "#f7538f"
+                                        ] 10
+
+                    , Run Cpu            ["--template", "\xf2db <total>%"
+                                         , "-L"       , "3"
+                                         , "-H"       , "50"
+                                         , "--normal" , "#f799d7"
+                                         , "--high"   , "#f7538f"
                                         ] 10
 
                     , Run Memory        ["-t"           , "\xf538 <used>M"] 10
 
-                    , Run Date "\xf783 %a-%b-%_d %l:%M" "date" 10
+                    , Run Date "\xf783 %a-%b-%d %l:%M" "date" 10
 
                     , Run Kbd           [ ("us" , "US")
                                         , ("me" , "ME")
@@ -75,7 +82,7 @@ Config {font = "xft:SourceCodePro:style=regular:size=12,Font Awesome 5 Pro:size=
 
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %multicpu% %memory%  %date%  %bright%  %default:Master% <action=`next_keyboard_layout`>%kbd%</action> "
+       , template = "%StdinReader% }{ %cpu% %memory%  %date%  %bright%  %default:Master% <action=`next_keyboard_layout`>%kbd%</action> "
        }
 
 -- vim: set filetype=hs :
