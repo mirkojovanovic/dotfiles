@@ -1,20 +1,24 @@
 
+-- Base
 import System.IO
 import Data.Maybe (isJust)
 import qualified Data.Map.Strict as Map
-import qualified XMonad.StackSet as W
-
-import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shiftPrevScreen)
-
 import XMonad
 import XMonad.Config.Desktop
+import qualified XMonad.StackSet as W
 
+-- Actions
+import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shiftPrevScreen)
+
+-- Hooks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 
+-- Utils
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeysP)
 
+-- Layouts
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.NoBorders
 
@@ -46,12 +50,14 @@ myFocusedBorderColor = "#f799d7"
 myWorkspaces  = ["term", "web", "dev", "chat", "media", "read"] ++ map show [7..9]
 
 myManageHook  = composeAll
-  [ className =? "Gimp"        --> doFloat
-  , className =? "Arandr"      --> doFloat
-  , className =? "keepassx2"   --> doFloat
-  , className =? "qutebrowser" --> doShift "web"
-  , className =? "discord"     --> doShift "chat"
-  , className =? "slack"       --> doShift "chat"
+  [ className =? "Gimp"                    --> doFloat
+  , className =? "Arandr"                  --> doFloat
+  , className =? "keepassx2"               --> doFloat
+  , className =? "sun-awt-X11-XDialogPeer" --> doFloat
+  , className =? "qutebrowser"             --> doShift "web"
+  , className =? "discord"                 --> doShift "chat"
+  , className =? "slack"                   --> doShift "chat"
+  , className =? "jetbrains-studio"        --> doShift "dev"
   ]
 
 myKeys =
