@@ -1,0 +1,72 @@
+" make search case insensitive
+set ignorecase
+
+" enable :help <pattern>
+set vimhelp
+
+" split before going to :view if there is only one pane
+" 'w' didn't work by default
+:nnoremap w :if layoutis('only') | vsplit | endif | view<cr>
+
+
+" set colorscheme
+colorscheme dracula
+
+"-------- GUI defaults {{{
+"------------------------------------------------------
+
+filextype *.jpg,*.jpeg,*.png,*.gif,*.svg
+ \ {View in sxiv}
+ \ sxiv -fZs f %c $(cd %d; \ls -1 *(.) | grep -v %c) 2>/dev/null
+
+filextype *.mp3,*.wav,*.flac,*.ogg,*.webm
+ \ {Play in cmus}
+ \ cmus_play.sh %d/%c >/dev/null
+
+filextype *.pdf
+ \ {Open pdf in zathura}
+ \ zathura %c > /dev/null 2>&1
+
+filextype *.mkv,*.mp4,*.avi
+ \ {Open video in mpv}
+ \ mpv %f
+
+"}}}
+
+"-------- Preview defaults {{{
+"------------------------------------------------------
+
+fileviewer *.rar
+ \ unrar lb %c
+
+fileviewer *.mp3
+ \ mp3info %c
+
+fileviewer *.zip
+ \ unzip -l %c
+
+fileviewer *.tar,*.tar.gz,*.tar.xz
+ \ tar -tvf %c
+
+fileviewer *.pdf
+  \ pdftotext %c -
+
+fileviewer *.png,*.jpeg,*.jpg
+ \ img2txt %c
+
+"}}}
+
+"-------- Custom commands {{{
+"------------------------------------------------------
+
+" link file
+command link ln -s %d/%f %D
+command linkf ln -sf %d/%f %D
+
+" unpack archive
+command unrar unrar e %c
+
+"}}}
+
+" vim: set filetype=vifm-cmdedit syntax=vifm :
+
