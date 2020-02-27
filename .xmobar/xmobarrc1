@@ -1,0 +1,40 @@
+
+Config {font = "xft:SourceCodePro:style=regular:size=12,Font Awesome 5 Pro:size=12"
+       , bgColor = "#1c1c1c"
+       , fgColor = "#bababa"
+       , alpha = 230
+       , commands = [ Run DynNetwork     [ "--template" , "\xf309 <rx>kB/s  \xf30c <tx>kB/s"
+                                         , "--Low"      , "1000"       -- units: B/s
+                                         , "--High"     , "5000"       -- units: B/s
+                                         , "--low"      , "#bababa"
+                                         , "--normal"   , "#cc672a"
+                                         , "--high"     , "#ea8d45"
+                                        ] 10
+
+                    , Run MultiCpu       [ "--template" , "\xf2db <total0>% <total1>% <total2>% <total3>%"
+                                         , "-L"       , "3"
+                                         , "-H"       , "50"
+                                         , "--normal" , "#f799d7"
+                                         , "--high"   , "#f7538f"
+                                        ] 10
+
+
+                    , Run StdinReader
+
+                    , Run DiskU [ ("/", "\xf0a0 <used>/<size> ")
+                                , ("/home", "\xf0a0 <used>/<size>")
+                               ]
+                                [ "-L", "20"
+                                , "-H", "50"
+                                , "-m", "1"
+                                , "-p", "3"
+                               ] 20
+
+                    ]
+
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %dynnetwork%  %disku% "
+       }
+
+-- vim: set filetype=hs :

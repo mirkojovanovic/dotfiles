@@ -9,6 +9,8 @@ import qualified XMonad.StackSet as W
 
 -- Actions
 import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shiftPrevScreen)
+import XMonad.Actions.CycleRecentWS
+import XMonad.Actions.CopyWindow (copyToAll, killAllOtherCopies)
 
 -- Hooks
 import XMonad.Hooks.DynamicLog
@@ -21,46 +23,59 @@ import XMonad.Util.EZConfig(additionalKeysP)
 -- Layouts
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Spacing
+import XMonad.Layout.LayoutModifier
+
+colorRed = "#d75f5f"
 
 main = do
-  xmproc <- spawnPipe "xmobar"
+  xmproc0 <- spawnPipe "xmobar -x 0 ~/.xmobar/xmobarrc0"
+  xmproc1 <- spawnPipe "xmobar -x 1 ~/.xmobar/xmobarrc1"
   xmonad $ desktopConfig
     { terminal    = myTerminal
     , workspaces  = myWorkspaces
     , modMask     = myModMask
-    , manageHook  = manageDocks <+> myManageHook <+> manageHook desktopConfig
+    , manageHook  = myManageHook
     , layoutHook  = myLayoutHook
     , borderWidth = myBorderWidth
     , normalBorderColor = myNormalBorderColor
     , focusedBorderColor = myFocusedBorderColor
     , logHook     = dynamicLogWithPP xmobarPP
-      { ppOutput = hPutStrLn xmproc
-      , ppTitle  = xmobarColor "#bababa" "" . shorten 50
-      , ppCurrent = xmobarColor "#d75f5f" "" . wrap "[" "]"
+      { ppOutput  = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x
+      , ppTitle   = xmobarColor "#bababa" "" . shorten 50
+      , ppSep     = "<fc=" ++ colorRed ++ "> : </fc>"
+      , ppCurrent = xmobarColor colorRed "" . wrap "[" "]"
+      , ppVisible = xmobarColor colorRed "" . wrap "(" ")"
       }
     } `additionalKeysP` myKeys
 
 myTerminal    = "termite"
 myModMask     = mod4Mask
 
-myBorderWidth = 1
+myBorderWidth = 2
 myNormalBorderColor = "#1c1c1c"
-myFocusedBorderColor = "#f799d7"
+myFocusedBorderColor = "#d75f5f"
 
-myWorkspaces  = ["term", "web", "dev", "chat", "media", "read"] ++ map show [7..9]
+myWorkspaces  = ["term", "web", "chat", "dev", "media", "read"] ++ map show [7..9]
 
+-- Manage Hook
 myManageHook  = composeAll
-  [ className =? "Gimp"                    --> doFloat
+  [ manageDocks
+  , manageHook desktopConfig
+  , className =? "Gimp"                    --> doFloat
   , className =? "Arandr"                  --> doFloat
   , className =? "keepassx2"               --> doFloat
-  , className =? "sun-awt-X11-XDialogPeer" --> doFloat
   , className =? "mpv"                     --> doFloat
   , className =? "qutebrowser"             --> doShift "web"
   , className =? "discord"                 --> doShift "chat"
   , className =? "slack"                   --> doShift "chat"
+  , className =? "sun-awt-X11-XDialogPeer" --> doFloat
+  , className =? "sun-awt-X11-XWindowPeer" --> doFloat
+  , className =? "sun-awt-X11-XWindowPeer" --> doShift "dev"
   , className =? "jetbrains-studio"        --> doShift "dev"
   ]
 
+-- Key configuration
 myKeys =
   [ ("M-S-z"     , spawn "~/.local/bin/lock_screen")
 
@@ -69,15 +84,32 @@ myKeys =
   , ("<Print>"   , spawn "scrot")
 
   -- Workspaces
-  , ("M-l", moveTo Next nonNSP)
-  , ("M-h", moveTo Prev nonNSP)
-  , ("M-S-l", shiftTo Next nonNSP >> moveTo Next nonNSP)
-  , ("M-S-h", shiftTo Prev nonNSP >> moveTo Prev nonNSP)
+  , ("M-S-l", moveTo Next nonNSP)
+  , ("M-S-h", moveTo Prev nonNSP)
+  , ("M-<Tab>", cycleRecentWS [xK_Alt_L] xK_Tab xK_grave)
+
+  -- Windows
+  , ("M-v", windows copyToAll)
+  , ("M-S-v", killAllOtherCopies)
+
+  -- Multimedia keys
+  , ("<XF86AudioPlay>", spawn "cmus-remote -u")
+  , ("<XF86AudioNext>", spawn "cmus-remote -n")
+  , ("<XF86AudioPrev>", spawn "cmus-remote -r")
+
+  , ("<XF86MonBrightnessUp>", spawn "xbacklight -inc 5")
+  , ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 5")
+
+  , ("<XF86AudioRaiseVolume>", spawn "ponymix increase 5")
+  , ("<XF86AudioLowerVolume>", spawn "ponymix decrease 5")
+  , ("<XF86AudioMute>", spawn "ponymix toggle")
   ] where nonNSP = WSIs (return (\ws -> W.tag ws /= "nsp"))
-          nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
 
-
-myLayoutHook = avoidStruts
+-- Layout Hook
+myLayoutHook = spacingRaw True (Border 0 10 10 10) True (Border 10 10 10 10) True
              $ smartBorders
+             $ avoidStruts
              $ onWorkspace "chat" Full
+             $ onWorkspace "web" Full
              $ layoutHook desktopConfig
+

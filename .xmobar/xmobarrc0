@@ -2,7 +2,7 @@
 Config {font = "xft:SourceCodePro:style=regular:size=12,Font Awesome 5 Pro:size=12"
        , bgColor = "#1c1c1c"
        , fgColor = "#bababa"
-       , alpha = 170
+       , alpha = 230
        -- , position = Static { xpos = 0, ypos = 0, width = 1280, height = 25 },
        , position = TopSize L 92 25
        , commands = [ Run Weather "EGPF" [ "-t"         , " <tempF>F"
@@ -47,7 +47,7 @@ Config {font = "xft:SourceCodePro:style=regular:size=12,Font Awesome 5 Pro:size=
 
                     , Run Volume "default" "Master" [ "--template", "<action=`ponymix increase 5 > /dev/null` button=4>\
                                                                        \<action=`ponymix decrease 5 > /dev/null` button=5>\
-                                                                        \<action=`toggle_mute > /dev/null`>\
+                                                                        \<action=`ponymix toggle > /dev/null`>\
                                                                          \<status> \
                                                                         \</action>\
                                                                        \<volume>% \
