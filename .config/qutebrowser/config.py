@@ -6,6 +6,13 @@
 # Uncomment this to still load settings configured via autoconfig.yml
 # config.load_autoconfig()
 
+# Additional arguments to pass to Qt, without leading `--`. With
+# QtWebEngine, some Chromium arguments (see
+# https://peter.sh/experiments/chromium-command-line-switches/ for a
+# list) will work.
+# Type: List of String
+c.qt.args = ['blink-settings=darkMode=4', 'darkModeImagePolicy=2']
+
 # User agent to send.  The following placeholders are defined:  *
 # `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
 # The underlying WebKit version (set to a fixed value   with
@@ -19,6 +26,62 @@
 # read from JavaScript is always the global value.
 # Type: FormatString
 config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}; rv:71.0) Gecko/20100101 Firefox/71.0', 'https://*.google.com/*')
+
+# User agent to send.  The following placeholders are defined:  *
+# `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
+# The underlying WebKit version (set to a fixed value   with
+# QtWebEngine). * `{qt_key}`: "Qt" for QtWebKit, "QtWebEngine" for
+# QtWebEngine. * `{qt_version}`: The underlying Qt version. *
+# `{upstream_browser_key}`: "Version" for QtWebKit, "Chrome" for
+# QtWebEngine. * `{upstream_browser_version}`: The corresponding
+# Safari/Chrome version. * `{qutebrowser_version}`: The currently
+# running qutebrowser version.  The default value is equal to the
+# unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
+# read from JavaScript is always the global value.
+# Type: FormatString
+config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}', 'https://web.whatsapp.com/')
+
+# User agent to send.  The following placeholders are defined:  *
+# `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
+# The underlying WebKit version (set to a fixed value   with
+# QtWebEngine). * `{qt_key}`: "Qt" for QtWebKit, "QtWebEngine" for
+# QtWebEngine. * `{qt_version}`: The underlying Qt version. *
+# `{upstream_browser_key}`: "Version" for QtWebKit, "Chrome" for
+# QtWebEngine. * `{upstream_browser_version}`: The corresponding
+# Safari/Chrome version. * `{qutebrowser_version}`: The currently
+# running qutebrowser version.  The default value is equal to the
+# unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
+# read from JavaScript is always the global value.
+# Type: FormatString
+config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}; rv:71.0) Gecko/20100101 Firefox/71.0', 'https://accounts.google.com/*')
+
+# User agent to send.  The following placeholders are defined:  *
+# `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
+# The underlying WebKit version (set to a fixed value   with
+# QtWebEngine). * `{qt_key}`: "Qt" for QtWebKit, "QtWebEngine" for
+# QtWebEngine. * `{qt_version}`: The underlying Qt version. *
+# `{upstream_browser_key}`: "Version" for QtWebKit, "Chrome" for
+# QtWebEngine. * `{upstream_browser_version}`: The corresponding
+# Safari/Chrome version. * `{qutebrowser_version}`: The currently
+# running qutebrowser version.  The default value is equal to the
+# unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
+# read from JavaScript is always the global value.
+# Type: FormatString
+config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99 Safari/537.36', 'https://*.slack.com/*')
+
+# User agent to send.  The following placeholders are defined:  *
+# `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
+# The underlying WebKit version (set to a fixed value   with
+# QtWebEngine). * `{qt_key}`: "Qt" for QtWebKit, "QtWebEngine" for
+# QtWebEngine. * `{qt_version}`: The underlying Qt version. *
+# `{upstream_browser_key}`: "Version" for QtWebKit, "Chrome" for
+# QtWebEngine. * `{upstream_browser_version}`: The corresponding
+# Safari/Chrome version. * `{qutebrowser_version}`: The currently
+# running qutebrowser version.  The default value is equal to the
+# unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
+# read from JavaScript is always the global value.
+# Type: FormatString
+config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}; rv:71.0) Gecko/20100101 Firefox/71.0', 'https://docs.google.com/*')
 
 # Load images automatically in web pages.
 # Type: Bool
@@ -65,188 +128,211 @@ c.tabs.padding = {'bottom': 2, 'left': 5, 'right': 5, 'top': 2}
 # used by prepending the search engine name to the search term, e.g.
 # `:open google qutebrowser`.
 # Type: Dict
-c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 'yt': 'https://www.youtube.com/results?search_query={}', 'aw': 'https://wiki.archlinux.org/index.php/{}', 'apkg': 'https://www.archlinux.org/packages/?sort=&q={}&maintainer=&flagged=', 'aur': 'https://aur.archlinux.org/packages/?O=0&K={}', 'google': 'https://www.google.com/search?q={}'}
-
-text_color = '#bababa'
-bg_color0 = '#1a111a'
-bg_color1 = '#2a212a'
-bg_color2 = '#3a313a'
-bg_color3 = '#4a313a'
-bg_color4 = '#1c1c1c'
-fg_color0 = '#f799d7'
-fg_color1 = '#d75f5f'
+c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 'yt': 'https://www.youtube.com/results?search_query={}', 'aw': 'https://wiki.archlinux.org/index.php/{}', 'apkg': 'https://www.archlinux.org/packages/?sort=&q={}&maintainer=&flagged=', 'aur': 'https://aur.archlinux.org/packages/?O=0&K={}', 'google': 'https://www.google.com/search?q={}', 'vimawesome': 'https://vimawesome.com/?q={}', 'gh': 'https://github.com/search?q={}', 'ad': 'https://developer.android.com/s/results?q={}'}
 
 # Text color of the completion widget. May be a single color to use for
 # all columns or a list of three colors, one for each column.
 # Type: List of QtColor, or QtColor
-c.colors.completion.fg = text_color
+c.colors.completion.fg = '#bababa'
 
 # Background color of the completion widget for odd rows.
 # Type: QssColor
-c.colors.completion.odd.bg = bg_color1
+c.colors.completion.odd.bg = '#2a212a'
 
 # Background color of the completion widget for even rows.
 # Type: QssColor
-c.colors.completion.even.bg = bg_color1
+c.colors.completion.even.bg = '#2a212a'
 
 # Foreground color of completion widget category headers.
 # Type: QtColor
-c.colors.completion.category.fg = fg_color0
+c.colors.completion.category.fg = '#f799d7'
 
 # Background color of the completion widget category headers.
 # Type: QssColor
-c.colors.completion.category.bg = bg_color2
+c.colors.completion.category.bg = '#3a313a'
 
 # Top border color of the completion widget category headers.
 # Type: QssColor
-c.colors.completion.category.border.top = bg_color1
+c.colors.completion.category.border.top = '#2a212a'
 
 # Bottom border color of the completion widget category headers.
 # Type: QssColor
-c.colors.completion.category.border.bottom = bg_color1
+c.colors.completion.category.border.bottom = '#2a212a'
 
 # Foreground color of the selected completion item.
 # Type: QtColor
-c.colors.completion.item.selected.fg = fg_color0
+c.colors.completion.item.selected.fg = '#f799d7'
 
 # Background color of the selected completion item.
 # Type: QssColor
-c.colors.completion.item.selected.bg = bg_color2
+c.colors.completion.item.selected.bg = '#3a313a'
 
 # Top border color of the selected completion item.
 # Type: QssColor
-c.colors.completion.item.selected.border.top = bg_color1
+c.colors.completion.item.selected.border.top = '#2a212a'
 
 # Bottom border color of the selected completion item.
 # Type: QssColor
-c.colors.completion.item.selected.border.bottom = bg_color1
+c.colors.completion.item.selected.border.bottom = '#2a212a'
 
 # Foreground color of the matched text in the selected completion item.
 # Type: QtColor
-c.colors.completion.item.selected.match.fg = fg_color0
+c.colors.completion.item.selected.match.fg = '#f799d7'
 
 # Color of the scrollbar handle in the completion view.
 # Type: QssColor
-c.colors.completion.scrollbar.fg = fg_color0
+c.colors.completion.scrollbar.fg = '#f799d7'
 
 # Color of the scrollbar in the completion view.
 # Type: QssColor
-c.colors.completion.scrollbar.bg = bg_color0
+c.colors.completion.scrollbar.bg = '#1a111a'
+
+# Color gradient start for download text.
+# Type: QtColor
+c.colors.downloads.start.fg = '#444'
+
+# Color gradient start for download backgrounds.
+# Type: QtColor
+c.colors.downloads.start.bg = '#fb73a5'
+
+# Color gradient end for download text.
+# Type: QtColor
+c.colors.downloads.stop.fg = '#555'
+
+# Color gradient stop for download backgrounds.
+# Type: QtColor
+c.colors.downloads.stop.bg = '#f799d7'
+
+# Foreground color for downloads with errors.
+# Type: QtColor
+c.colors.downloads.error.fg = '#444'
+
+# Background color for downloads with errors.
+# Type: QtColor
+c.colors.downloads.error.bg = '#f7538f'
 
 # Font color for hints.
 # Type: QssColor
-c.colors.hints.fg = text_color
+c.colors.hints.fg = '#bababa'
 
 # Background color for hints. Note that you can use a `rgba(...)` value
 # for transparency.
 # Type: QssColor
-c.colors.hints.bg = bg_color1
+c.colors.hints.bg = '#2a212a'
 
 # Font color for the matched part of hints.
 # Type: QtColor
-c.colors.hints.match.fg = fg_color0
+c.colors.hints.match.fg = '#f799d7'
 
 # Background color of the statusbar.
 # Type: QssColor
-c.colors.statusbar.normal.bg = bg_color0
+c.colors.statusbar.normal.bg = '#1a111a'
 
 # Background color of the statusbar in insert mode.
 # Type: QssColor
-c.colors.statusbar.insert.bg = bg_color2
+c.colors.statusbar.insert.bg = '#3a313a'
+
+# Background color of the statusbar in passthrough mode.
+# Type: QssColor
+c.colors.statusbar.passthrough.bg = '#1a111a'
 
 # Foreground color of the statusbar in private browsing mode.
 # Type: QssColor
-c.colors.statusbar.private.fg = text_color
+c.colors.statusbar.private.fg = '#bababa'
 
 # Background color of the statusbar in private browsing mode.
 # Type: QssColor
-c.colors.statusbar.private.bg = bg_color0
+c.colors.statusbar.private.bg = '#1a111a'
 
 # Foreground color of the statusbar in command mode.
 # Type: QssColor
-c.colors.statusbar.command.fg = text_color
+c.colors.statusbar.command.fg = '#bababa'
 
 # Background color of the statusbar in command mode.
 # Type: QssColor
-c.colors.statusbar.command.bg = bg_color0
+c.colors.statusbar.command.bg = '#1a111a'
 
 # Foreground color of the statusbar in private browsing + command mode.
 # Type: QssColor
-c.colors.statusbar.command.private.fg = text_color
+c.colors.statusbar.command.private.fg = '#bababa'
 
 # Background color of the statusbar in private browsing + command mode.
 # Type: QssColor
-c.colors.statusbar.command.private.bg = bg_color0
+c.colors.statusbar.command.private.bg = '#1a111a'
 
 # Foreground color of the statusbar in caret mode.
 # Type: QssColor
-c.colors.statusbar.caret.fg = text_color
+c.colors.statusbar.caret.fg = '#bababa'
 
 # Background color of the statusbar in caret mode.
 # Type: QssColor
-c.colors.statusbar.caret.bg = bg_color2
+c.colors.statusbar.caret.bg = '#3a313a'
 
 # Background color of the progress bar.
 # Type: QssColor
-c.colors.statusbar.progress.bg = fg_color1
+c.colors.statusbar.progress.bg = '#d75f5f'
 
 # Default foreground color of the URL in the statusbar.
 # Type: QssColor
-c.colors.statusbar.url.fg = fg_color1
+c.colors.statusbar.url.fg = '#d75f5f'
 
 # Foreground color of the URL in the statusbar on error.
 # Type: QssColor
-c.colors.statusbar.url.error.fg = fg_color1
+c.colors.statusbar.url.error.fg = '#d75f5f'
 
 # Foreground color of the URL in the statusbar for hovered links.
 # Type: QssColor
-c.colors.statusbar.url.hover.fg = fg_color0
+c.colors.statusbar.url.hover.fg = '#f799d7'
 
 # Foreground color of the URL in the statusbar on successful load
 # (http).
 # Type: QssColor
-c.colors.statusbar.url.success.http.fg = fg_color0
+c.colors.statusbar.url.success.http.fg = '#f799d7'
 
 # Foreground color of the URL in the statusbar on successful load
 # (https).
 # Type: QssColor
-c.colors.statusbar.url.success.https.fg = fg_color0
+c.colors.statusbar.url.success.https.fg = '#f799d7'
 
 # Background color of the tab bar.
 # Type: QssColor
-c.colors.tabs.bar.bg = bg_color4
+c.colors.tabs.bar.bg = '#1c1c1c'
 
 # Foreground color of unselected odd tabs.
 # Type: QtColor
-c.colors.tabs.odd.fg = text_color
+c.colors.tabs.odd.fg = '#bababa'
 
 # Background color of unselected odd tabs.
 # Type: QtColor
-c.colors.tabs.odd.bg = bg_color1
+c.colors.tabs.odd.bg = '#2a212a'
 
 # Foreground color of unselected even tabs.
 # Type: QtColor
-c.colors.tabs.even.fg = text_color
+c.colors.tabs.even.fg = '#bababa'
 
 # Background color of unselected even tabs.
 # Type: QtColor
-c.colors.tabs.even.bg = bg_color1
+c.colors.tabs.even.bg = '#2a212a'
 
 # Foreground color of selected odd tabs.
 # Type: QtColor
-c.colors.tabs.selected.odd.fg = fg_color0
+c.colors.tabs.selected.odd.fg = '#f799d7'
 
 # Background color of selected odd tabs.
 # Type: QtColor
-c.colors.tabs.selected.odd.bg = bg_color2
+c.colors.tabs.selected.odd.bg = '#3a313a'
 
 # Foreground color of selected even tabs.
 # Type: QtColor
-c.colors.tabs.selected.even.fg = fg_color0
+c.colors.tabs.selected.even.fg = '#f799d7'
 
 # Background color of selected even tabs.
 # Type: QtColor
-c.colors.tabs.selected.even.bg = bg_color2
+c.colors.tabs.selected.even.bg = '#3a313a'
+
+# Font used for the downloadbar.
+# Type: Font
+c.fonts.downloads = '11pt default_family'
 
 # Font used for the hints.
 # Type: Font
@@ -259,3 +345,8 @@ c.fonts.statusbar = '11pt default_family'
 # Font used in the tab bar.
 # Type: QtFont
 c.fonts.tabs = '11pt default_family'
+
+# Bindings for normal mode
+config.bind(',M', 'hint links spawn umpv --geometry=25%x25%-2%+7% {hint-url}')
+config.bind(',m', 'spawn umpv --geometry=25%x25%-2%+7% {url}')
+config.bind('<Alt+m>', "message-info 'Toggling desktop/mobile';; config-cycle content.headers.user_agent 'Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 Mobile Safari/537.36'  'Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {qt_key}/{qt_version} {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}'")

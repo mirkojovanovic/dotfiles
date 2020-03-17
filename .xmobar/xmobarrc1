@@ -1,5 +1,5 @@
 
-Config {font = "xft:SourceCodePro:style=regular:size=12,Font Awesome 5 Pro:size=12"
+Config {font = "xft:SourceCodePro:style=regular:size=11,Font Awesome 5 Pro:size=11"
        , bgColor = "#1c1c1c"
        , fgColor = "#bababa"
        , alpha = 230
@@ -34,7 +34,7 @@ Config {font = "xft:SourceCodePro:style=regular:size=12,Font Awesome 5 Pro:size=
 
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %dynnetwork%  %disku% "
+       , template = "%StdinReader% }{ %dynnetwork% "
        }
 
 -- vim: set filetype=hs :

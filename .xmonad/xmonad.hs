@@ -4,80 +4,105 @@ import System.IO
 import Data.Maybe (isJust)
 import qualified Data.Map.Strict as Map
 import XMonad
-import XMonad.Config.Desktop
 import qualified XMonad.StackSet as W
 
 -- Actions
 import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shiftPrevScreen)
-import XMonad.Actions.CycleRecentWS
+import XMonad.Actions.CycleRecentWS (cycleRecentWS)
 import XMonad.Actions.CopyWindow (copyToAll, killAllOtherCopies)
 
 -- Hooks
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageDocks (manageDocks, Direction1D (Next, Prev), avoidStruts)
+import XMonad.Hooks.ManageHelpers (doCenterFloat)
 
 -- Utils
-import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeysP)
 
 -- Layouts
-import XMonad.Layout.PerWorkspace
-import XMonad.Layout.NoBorders
+import XMonad.Layout.PerWorkspace(onWorkspaces)
 import XMonad.Layout.Spacing
-import XMonad.Layout.LayoutModifier
-
-colorRed = "#d75f5f"
+import XMonad.Layout.NoBorders
 
 main = do
-  xmproc0 <- spawnPipe "xmobar -x 0 ~/.xmobar/xmobarrc0"
-  xmproc1 <- spawnPipe "xmobar -x 1 ~/.xmobar/xmobarrc1"
-  xmonad $ desktopConfig
-    { terminal    = myTerminal
-    , workspaces  = myWorkspaces
-    , modMask     = myModMask
-    , manageHook  = myManageHook
-    , layoutHook  = myLayoutHook
-    , borderWidth = myBorderWidth
-    , normalBorderColor = myNormalBorderColor
+  xmonad $ defaultConfig
+    { terminal           = myTerminal
+    , workspaces         = myWorkspaces
+    , modMask            = myModMask
+    , manageHook         = myManageHook
+    , layoutHook         = myLayoutHook
+    , borderWidth        = myBorderWidth
+    , normalBorderColor  = myNormalBorderColor
     , focusedBorderColor = myFocusedBorderColor
-    , logHook     = dynamicLogWithPP xmobarPP
-      { ppOutput  = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x
-      , ppTitle   = xmobarColor "#bababa" "" . shorten 50
-      , ppSep     = "<fc=" ++ colorRed ++ "> : </fc>"
-      , ppCurrent = xmobarColor colorRed "" . wrap "[" "]"
-      , ppVisible = xmobarColor colorRed "" . wrap "(" ")"
-      }
     } `additionalKeysP` myKeys
 
 myTerminal    = "termite"
 myModMask     = mod4Mask
 
+-- Border settings
 myBorderWidth = 2
-myNormalBorderColor = "#1c1c1c"
+myNormalBorderColor = "#120324"
 myFocusedBorderColor = "#d75f5f"
 
 myWorkspaces  = ["term", "web", "chat", "dev", "media", "read"] ++ map show [7..9]
 
--- Manage Hook
-myManageHook  = composeAll
-  [ manageDocks
-  , manageHook desktopConfig
-  , className =? "Gimp"                    --> doFloat
-  , className =? "Arandr"                  --> doFloat
-  , className =? "keepassx2"               --> doFloat
-  , className =? "mpv"                     --> doFloat
-  , className =? "qutebrowser"             --> doShift "web"
-  , className =? "discord"                 --> doShift "chat"
-  , className =? "slack"                   --> doShift "chat"
-  , className =? "sun-awt-X11-XDialogPeer" --> doFloat
-  , className =? "sun-awt-X11-XWindowPeer" --> doFloat
-  , className =? "sun-awt-X11-XWindowPeer" --> doShift "dev"
-  , className =? "jetbrains-studio"        --> doShift "dev"
-  ]
+-- {{{ MyManageHook
 
--- Key configuration
+myManageHook  = manageDocks <+> (composeAll . concat)
+  [ [className =? c --> doFloat        | c <- classFloat]
+  , [className =? c --> doCenterFloat  | c <- classCenterFloat]
+  , [appName   =? c --> doCenterFloat  | c <- appNameCenterFloat]
+  , [className =? c --> doShift "web"  | c <- classShiftWeb]
+  , [className =? c --> doShift "chat" | c <- classShiftChat]
+  , [className =? c --> doShift "dev"  | c <- classShiftDev]
+  , [appName   =? c --> doShift "dev"  | c <- appNameShiftDev]
+  , [className =? c --> doShift "read" | c <- classShiftRead]
+  ]
+  where
+    classFloat =
+      [ "Gimp"
+      , "Arandr"
+      , "mpv"
+      ]
+
+    classCenterFloat =
+      [ "GParted"
+      , "KeePassXC"
+      , "Barrier"
+      , "Sxiv"
+      ]
+
+    appNameCenterFloat =
+      [ "sun-awt-X11-XWindowPeer" ]
+
+    classShiftWeb =
+      [ "qutebrowser" ]
+
+    classShiftChat =
+      [ "discord"
+      , "slack"
+      , "ViberPC"
+      ]
+
+    classShiftDev =
+      [ "jetbrains-studio" ]
+
+    classShiftRead =
+      [ "calibre" ]
+
+    appNameShiftDev =
+      [ "sun-awt-X11-XDialogPeer"
+      , "sun-awt-X11-XWindowPeer"
+      ]
+
+-- }}}
+
+-- {{{ myKeys
+
 myKeys =
   [ ("M-S-z"     , spawn "~/.local/bin/lock_screen")
+
+  -- Custom dmenu
+  , ("M-p", spawn "dmenu_run -fn 'SourceCodePro:style=regular:size=11' -nf '#bababa' -nb '#1c1c1c' -sf '#000' -sb '#d75f5f' -p 'dmenu:'")
 
   -- Taking screenshots
   , ("C-<Print>" , spawn "sleep 0.2; scrot -s")
@@ -105,11 +130,14 @@ myKeys =
   , ("<XF86AudioMute>", spawn "ponymix toggle")
   ] where nonNSP = WSIs (return (\ws -> W.tag ws /= "nsp"))
 
--- Layout Hook
-myLayoutHook = spacingRaw True (Border 0 10 10 10) True (Border 10 10 10 10) True
-             $ smartBorders
-             $ avoidStruts
-             $ onWorkspace "chat" Full
-             $ onWorkspace "web" Full
-             $ layoutHook desktopConfig
+-- }}}
+
+-- {{{ myLayoutHook
+
+myLayoutHook = smartBorders
+             $ spacingRaw True (Border 2 2 2 2) True (Border 2 2 2 2) True
+             $ onWorkspaces ["chat", "web"] Full
+             $ layoutHook defaultConfig
+
+-- }}}
 

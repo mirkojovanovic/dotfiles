@@ -10,14 +10,14 @@ set vimhelp
 
 
 " set colorscheme
-colorscheme dracula
+colorscheme skin
 
 "-------- GUI defaults {{{
 "------------------------------------------------------
 
 filextype *.jpg,*.jpeg,*.png,*.gif,*.svg
  \ {View in sxiv}
- \ sxiv -fZs f %c $(cd %d; \ls -1 *(.) | grep -v %c) 2>/dev/null
+ \ sxiv -fZs f %c $(cd %d; \ls -1 *(.) | grep -v %c) >/dev/null 2>&1 &
 
 filextype *.mp3,*.wav,*.flac,*.ogg,*.webm
  \ {Play in cmus}
@@ -25,11 +25,11 @@ filextype *.mp3,*.wav,*.flac,*.ogg,*.webm
 
 filextype *.pdf
  \ {Open pdf in zathura}
- \ zathura %c > /dev/null 2>&1
+ \ zathura %c >/dev/null 2>&1 &
 
 filextype *.mkv,*.mp4,*.avi
  \ {Open video in mpv}
- \ mpv %f
+ \ mpv %f >/dev/null 2>&1 &
 
 "}}}
 
@@ -63,8 +63,19 @@ fileviewer *.png,*.jpeg,*.jpg
 command link ln -s %d/%f %D
 command linkf ln -sf %d/%f %D
 
-" unpack archive
+" unrar
 command unrar unrar e %c
+
+" unrar to ./<rar_name>/
+command unrarx unrar x %c
+
+" rar selected files
+command rar rar a %a.rar %f
+
+" unzip
+command unzip unzip %c
+command unzips unzip %f
+command unzipd unzip %c -d $(basename %c .zip)
 
 "}}}
 

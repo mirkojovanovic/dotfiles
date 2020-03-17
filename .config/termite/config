@@ -6,7 +6,7 @@ audible_bell = true
 browser = xdg-open
 clickable_url = true
 cursor_blink = system
-cursor_shape = underline
+cursor_shape = block
 dynamic_title = true
 filter_unmatched_urls = true
 font = Courier Prime for Powerline 12
@@ -22,16 +22,18 @@ search_wrap = true
 urgent_on_bell = true
 highlight = #30343e
 
+[keybindings]
+fullscreen=
+
 [colors]
 
 # https://github.com/chriskempson/base16-xresources/blob/master/base16-railscasts.dark.256.xresources
 # Base16 Railscasts
 # Scheme: Ryan Bates (http://railscasts.com)
-foreground=#e6e1dc
-#background=#2b2b2b
-background=rgba(43,43,43,.7)
-cursor=#e6e1dc
-
+foreground=color131
+background=rgba(18,3,36,.8)
+cursor=#d75f5f
+cursor_foreground=#000
 color0=#2b2b2b
 color1=#da4939
 color2=#a5c261
