@@ -107,6 +107,23 @@ config.set('content.javascript.enabled', True, 'chrome://*/*')
 # Type: Bool
 config.set('content.javascript.enabled', True, 'qute://*/*')
 
+# Proxy to use. In addition to the listed values, you can use a
+# `socks://...` or `http://...` URL.
+# Type: Proxy
+# Valid values:
+#   - system: Use the system wide proxy.
+#   - none: Don't use any proxy
+c.content.proxy = 'system'
+
+# Editor (and arguments) to use for the `open-editor` command. The
+# following placeholders are defined:  * `{file}`: Filename of the file
+# to be edited. * `{line}`: Line in which the caret is found in the
+# text. * `{column}`: Column in which the caret is found in the text. *
+# `{line0}`: Same as `{line}`, but starting from index 0. * `{column0}`:
+# Same as `{column}`, but starting from index 0.
+# Type: ShellCommand
+c.editor.command = ['termite', '-e', 'vim -f {file} -c "normal {line}G{column0}l"']
+
 # CSS border value for hints.
 # Type: String
 c.hints.border = '2px solid #2a212a'
@@ -128,7 +145,7 @@ c.tabs.padding = {'bottom': 2, 'left': 5, 'right': 5, 'top': 2}
 # used by prepending the search engine name to the search term, e.g.
 # `:open google qutebrowser`.
 # Type: Dict
-c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 'yt': 'https://www.youtube.com/results?search_query={}', 'aw': 'https://wiki.archlinux.org/index.php/{}', 'apkg': 'https://www.archlinux.org/packages/?sort=&q={}&maintainer=&flagged=', 'aur': 'https://aur.archlinux.org/packages/?O=0&K={}', 'google': 'https://www.google.com/search?q={}', 'vimawesome': 'https://vimawesome.com/?q={}', 'gh': 'https://github.com/search?q={}', 'ad': 'https://developer.android.com/s/results?q={}'}
+c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 'yt': 'https://www.youtube.com/results?search_query={}', 'aw': 'https://wiki.archlinux.org/index.php/{}', 'apkg': 'https://www.archlinux.org/packages/?sort=&q={}&maintainer=&flagged=', 'aur': 'https://aur.archlinux.org/packages/?O=0&K={}', 'google': 'https://www.google.com/search?q={}', 'vimawesome': 'https://vimawesome.com/?q={}', 'gh': 'https://github.com/search?q={}', 'ad': 'https://developer.android.com/s/results?q={}', 'vw': 'https://wiki.voidlinux.org/index.php?search={}'}
 
 # Text color of the completion widget. May be a single color to use for
 # all columns or a list of three colors, one for each column.

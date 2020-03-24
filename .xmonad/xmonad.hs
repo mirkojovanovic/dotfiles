@@ -72,7 +72,9 @@ myManageHook  = manageDocks <+> (composeAll . concat)
       ]
 
     appNameCenterFloat =
-      [ "sun-awt-X11-XWindowPeer" ]
+      [ "sun-awt-X11-XWindowPeer"
+      , "sun-awt-X11-XFramePeer"
+      ]
 
     classShiftWeb =
       [ "qutebrowser" ]
@@ -92,6 +94,7 @@ myManageHook  = manageDocks <+> (composeAll . concat)
     appNameShiftDev =
       [ "sun-awt-X11-XDialogPeer"
       , "sun-awt-X11-XWindowPeer"
+      , "sun-awt-X11-XFramePeer"
       ]
 
 -- }}}
