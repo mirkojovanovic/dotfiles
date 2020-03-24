@@ -1,0 +1,53 @@
+
+! notify on bell sound
+URxvt.bell-command: notify-send "rxvt-unicode: bell!"
+URxvt.perl-ext-common: ...,bell-command,...
+
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
+! disable the scrollback buffer for the secondary screen
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+URxvt.secondaryWheel: 1
+
+! fonts
+URxvt.font: xft:Source Code Pro:size=15
+URxvt.letterSpacing: -1
+
+URxvt.scrollBar: false
+
+URxvt.cursorBlink: true
+
+! transparency
+URxvt.depth: 32
+URxvt.background: [95]#232323
+
+! colorscheme (ratpoison)
+!*background:#232323
+*foreground:#e8e9ca
+
+*color0:    #232323
+*color1:    #8b3e2f
+*color2:    #526f33
+*color3:    #8B814C
+*color4:    #4A708B
+*color5:    #7A378B
+*color6:    #528B8B
+*color7:    #999999
+
+*color8:    #4c4c4c
+*color9:    #d75f00
+*color10:   #8ea433
+*color11:   #EEE685
+*color12:   #9AC0CD
+*color13:   #9F79EE
+*color14:   #79CDCD
+*color15:   #E8E9CA
+
