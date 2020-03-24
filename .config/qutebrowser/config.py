@@ -330,6 +330,18 @@ c.colors.tabs.selected.even.fg = '#f799d7'
 # Type: QtColor
 c.colors.tabs.selected.even.bg = '#3a313a'
 
+# Background color of pinned unselected odd tabs.
+# Type: QtColor
+c.colors.tabs.pinned.odd.bg = '#d84949'
+
+# Foreground color of pinned unselected even tabs.
+# Type: QtColor
+c.colors.tabs.pinned.even.fg = '#fff'
+
+# Background color of pinned unselected even tabs.
+# Type: QtColor
+c.colors.tabs.pinned.even.bg = '#e07f7f'
+
 # Font used for the downloadbar.
 # Type: Font
 c.fonts.downloads = '11pt default_family'
