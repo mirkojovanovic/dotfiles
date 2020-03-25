@@ -35,7 +35,7 @@ main = do
     , focusedBorderColor = myFocusedBorderColor
     } `additionalKeysP` myKeys
 
-myTerminal    = "termite"
+myTerminal    = "urxvt"
 myModMask     = mod4Mask
 
 -- Border settings
