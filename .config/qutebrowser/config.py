@@ -145,7 +145,7 @@ c.tabs.padding = {'bottom': 2, 'left': 5, 'right': 5, 'top': 2}
 # used by prepending the search engine name to the search term, e.g.
 # `:open google qutebrowser`.
 # Type: Dict
-c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 'yt': 'https://www.youtube.com/results?search_query={}', 'aw': 'https://wiki.archlinux.org/index.php/{}', 'apkg': 'https://www.archlinux.org/packages/?sort=&q={}&maintainer=&flagged=', 'aur': 'https://aur.archlinux.org/packages/?O=0&K={}', 'google': 'https://www.google.com/search?q={}', 'vimawesome': 'https://vimawesome.com/?q={}', 'gh': 'https://github.com/search?q={}', 'ad': 'https://developer.android.com/s/results?q={}', 'vw': 'https://wiki.voidlinux.org/index.php?search={}'}
+c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 'yt': 'https://www.youtube.com/results?search_query={}', 'aw': 'https://wiki.archlinux.org/index.php/{}', 'apkg': 'https://www.archlinux.org/packages/?sort=&q={}&maintainer=&flagged=', 'aur': 'https://aur.archlinux.org/packages/?O=0&K={}', 'google': 'https://www.google.com/search?q={}', 'vimawesome': 'https://vimawesome.com/?q={}', 'gh': 'https://github.com/search?q={}', 'ad': 'https://developer.android.com/s/results?q={}', 'vw': 'https://wiki.voidlinux.org/index.php?search={}', 'ddc': 'https://www.dictionary.com/browse/{}?s=t'}
 
 # Text color of the completion widget. May be a single color to use for
 # all columns or a list of three colors, one for each column.
@@ -376,6 +376,6 @@ c.fonts.statusbar = '11pt default_family'
 c.fonts.tabs = '11pt default_family'
 
 # Bindings for normal mode
-config.bind(',M', 'hint links spawn umpv --geometry=25%x25%-2%+7% {hint-url}')
-config.bind(',m', 'spawn umpv --geometry=25%x25%-2%+7% {url}')
+config.bind(',M', 'hint links spawn umpv {hint-url}')
+config.bind(',m', 'spawn umpv {url}')
 config.bind('<Alt+m>', "message-info 'Toggling desktop/mobile';; config-cycle content.headers.user_agent 'Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 Mobile Safari/537.36'  'Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {qt_key}/{qt_version} {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}'")
