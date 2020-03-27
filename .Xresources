@@ -1,7 +1,18 @@
 
-! notify on bell sound
-URxvt.bell-command: notify-send "rxvt-unicode: bell!"
-URxvt.perl-ext-common: ...,bell-command,...
+URxvt.perl-ext: default,url-select,clipboard,resize-font
+
+! yankable urls
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.url-select.launcher: /usr/bin/xdg-open
+URxvt.url-select.underline: true
+
+! copy primary to clipboard selection
+URxvt.clipboard.autocopy: true
+URxvt.keysym.M-c: perl:clipboard:copy
+URxvt.keysym.M-v: perl:clipboard:paste
+
+! link color
+URxvt.colorUL: #4682B4
 
 ! do not scroll with output
 URxvt*scrollTtyOutput: false
